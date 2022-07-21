@@ -48,6 +48,8 @@ def srl_to_triple(srl: JsonDict) -> List[Any]:
             args = re.findall('\\[ARG[234M]+.*?: (.*?)\\]', triple)
             for arg2 in args:
                 res.append([arg1, verb, arg2])
+    if not res:
+        print(f"Empty triples for SRL: \n{srl}\n")
     return res
 
 
