@@ -35,9 +35,17 @@ def resolve_story(*args: str):
 
 
 def coref_res_to_resolved_sentence(coref_res, index):
+    """
+    Return resolved sentence for sentence indexed by index in story with coreference resolution result coref_res
+
+    :param coref_res: coreference resolution result of story
+    :param index: index of sentence in story
+    :return: resolved sentence or "" if resolution failed
+    """
     n = len(coref_res[1])
     if n < 5:
         print(f"Resolved sentence list has only {n} elements:\n{coref_res}\n")
+        # ideally, to be handled manually
         return ""
     if index > 5:
         raise IndexError(f"Index {index} out of bounds for stories of 5 sentences")
