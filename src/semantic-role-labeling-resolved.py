@@ -58,7 +58,7 @@ def srl_to_triple(srl: JsonDict) -> List[Any]:
 
 # Read ROCStories into pandas DataFrame
 roc_stories_path_csv = "../generated/coreference_resolution/ROCStories_with_resolved_coreferences.csv"
-roc_stories_df = pd.read_csv(roc_stories_path_csv, sep=',', header=0)
+roc_stories_df = pd.read_csv(roc_stories_path_csv, sep='\t', header=0)
 
 srl_df = roc_stories_df
 
