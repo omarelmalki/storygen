@@ -1,6 +1,9 @@
 import re
 from typing import List, Any
 import pandas as pd
+from tqdm import tqdm
+
+tqdm.pandas()
 
 from allennlp.common import JsonDict
 # Semantic Role Labeling with BERT : https://github.com/Riccorl/transformer-srl
@@ -61,7 +64,7 @@ srl_df = roc_stories_df
 
 # Add Knowledge triples to Dataframe for each sentence in the dataset
 for n in range(1, 6):
-    srl_df[f'srl_s{n}'] = srl_df[f'sentence{n}'].apply(lambda s: srl_to_triple(sentence_to_srl(s)))
+    srl_df[f'srl_s{n}'] = srl_df[f'sentence{n}'].progress_apply(lambda s: srl_to_triple(sentence_to_srl(s)))
 
 # Convert Dataframe to csv
 srl_df.to_csv('../generated/semantic-role-labeling/ROCStories_with_knowledge_triples', sep='\t')
