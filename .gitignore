@@ -3,5 +3,4 @@ data/
 .DS_Store
 .idea/
 generated/
-neuralcoref/
-
+lib/
