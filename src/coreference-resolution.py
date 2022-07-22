@@ -70,5 +70,20 @@ for i in range(1, 6):
     coref_df[f'resolved{i}'] = coref_df['coref_result'].progress_apply(lambda x: coref_res_to_resolved_sentence(x, i))
 del coref_df['coref_result']
 
+# Manually add resolved sentences for the few stories with failing coreferences
+story_ids = ['08f13294-29ea-412b-ad0d-e05ff9662003', '1382f6a2-459f-417d-9d7e-83e6d0e02e74', '83ab16e0-6f0f-4c0b-94f4-2d5e192d1bbd', '7f8aa034-57b6-4720-85cf-6a4d1da43bc3', '80e24095-17dd-4175-b8e7-1d790bdce7c0']
+
+story1_resolved = ['the minivan parked in the middle of the driveway in our building.', 'The driver loaded some luggage.', 'The driver kept the minivan in the driveway in our building.', 'Another car came behind the minivan and waited.', 'After the driver beeped, the minivan drove off.']
+story2_resolved = ['The delivery man handed a box to Gen.', "Gen was excited since Gen's new shoes were inside of a box.", "Once Gen tried Gen's new shoes on, Gen couldn't make Gen's new shoes fit.", "Gen spent hours trying to fix it but made no improvements.", "As a result, Gen returned Gen's new shoes the next day."]
+story3_resolved = ['Annabelle laid lifelessly against the window.', 'Annabelle was awaiting the arrival of her owner.', "The sound of the garage door opening alerted Annabelle's ear to perk.", 'Annabelle arose and ran towards the door.', 'Annabelle found her owner standing there with a dog treat in hand.']
+story4_resolved = ['Tina was waiting in line at the ice cream shop.', 'The woman in front of Tina was having a lot of samples.', 'This irritated Tina.', 'So Tina decided to confront The woman in front of Tina about it.', 'The woman in front of Tina got mad but did apologize.']
+story5_resolved = ['Sally had never made a salad before but thought it would be easy.', 'Sally washed the lettuce, tomatoes, and cucumber well.', 'Sally chopped up the tomato and cucumber.', 'The lettuce Sally tore by hand and put the lettuce, tomatoes, and cucumber all together in a large bowl.', 'Sally forked out a good portion and covered a good portion with ranch dressing.']
+
+resolved_stories = [story1_resolved, story2_resolved, story3_resolved, story4_resolved, story5_resolved]
+
+for n in range(1, 6):
+    for i in range(1, 6):
+        coref_df.loc[coref_df['storyid'] == story_ids[n-1], f'resolved{i}'] = resolved_stories[n-1][i-1]
+
 # Convert Dataframe to csv
-coref_df.to_csv('../generated/coreference_resolution/ROCStories_with_resolved_coreferences', sep='\t')
+coref_df.to_csv('../generated/coreference_resolution/ROCStories_with_resolved_coreferences.csv', sep='\t')
