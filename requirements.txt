@@ -16,19 +16,25 @@ certifi==2021.5.30
 cffi==1.15.1
 charset-normalizer==2.0.12
 click==8.0.4
+cloudpickle==2.1.0
 conllu==4.2.1
 contextvars==2.4
 cymem==2.0.6
 Cython==0.29.30
+dask==2.19.0
 dataclasses==0.8
 decorator==5.1.1
 defusedxml==0.7.1
+dill==0.3.4
+distributed==2.19.0
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
 entrypoints==0.4
 filelock==3.0.12
+fsspec==2022.1.0
 ftfy==6.0.3
 gensim==4.2.0
 h5py==3.1.0
+HeapDict==1.0.1
 idna==3.3
 immutables==0.18
 importlib-metadata==4.8.3
@@ -52,8 +58,11 @@ jupyter-core==4.9.2
 jupyterlab-pygments==0.1.2
 jupyterlab-widgets==1.1.1
 langcodes==3.3.0
+locket==1.0.0
 MarkupSafe==2.0.1
 mistune==0.8.4
+modin==0.8.3.post0
+msgpack==1.0.4
 murmurhash==1.0.7
 nbclient==0.5.9
 nbconvert==6.0.7
@@ -65,9 +74,11 @@ notebook==6.4.10
 numpy==1.19.5
 overrides==3.1.0
 packaging==21.3
+pandarallel==1.6.1
 pandas==1.1.5
 pandocfilters==1.5.0
 parso==0.7.1
+partd==1.2.0
 pathy==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
@@ -77,6 +88,7 @@ preshed==3.0.6
 prometheus-client==0.14.1
 prompt-toolkit==3.0.30
 protobuf==3.19.4
+psutil==5.9.1
 ptyprocess==0.7.0
 py==1.11.0
 py-rouge==1.1
@@ -88,6 +100,7 @@ pyrsistent==0.18.0
 pytest==7.0.1
 python-dateutil==2.8.2
 pytz==2022.1
+PyYAML==6.0
 pyzmq==23.2.0
 qtconsole==5.2.2
 QtPy==2.0.1
@@ -101,10 +114,12 @@ Send2Trash==1.8.0
 sentencepiece==0.1.91
 six==1.16.0
 smart-open==5.2.1
+sortedcontainers==2.4.0
 spacy==2.3.7
 spacy-legacy==3.0.9
 spacy-loggers==1.0.3
 srsly==1.0.5
+tblib==1.7.0
 tensorboardX==2.5.1
 terminado==0.12.1
 testpath==0.6.0
@@ -112,6 +127,7 @@ thinc==7.4.5
 threadpoolctl==3.1.0
 tokenizers==0.9.3
 tomli==1.2.3
+toolz==0.12.0
 torch==1.7.1
 tornado==6.1
 tqdm==4.64.0
@@ -126,4 +142,5 @@ wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.6.1
 word2number==1.1
+zict==2.1.0
 zipp==3.6.0
