@@ -20,23 +20,33 @@ pd.options.mode.chained_assignment = None
 
 def srl_to_entities(srl: JsonDict):
     """
-    Extract Knowledge triples from semantic roles
+    Extract PropBank entities from semantic roles
 
     :param srl: PropBank English SRLs
-    :return: knowledge triples as a List of Lists
+    :return: PropBank entities as a List of Lists
     """
     res = []
     verbs = srl['verbs']
-    n_empty = 0
     for d in verbs:
-        tags = d['tags']
         triple = d['description']
-        verb = d['verb']
         args = re.findall('\\[ARG[01234]+.*?: (.*?)\\]', triple)
         for arg1 in args:
             res.append(arg1)
     if not res:
         print(f"Empty entities for SRL: \n{srl}\n")
+    return res
+
+
+def sentence_to_entities(s):
+    """
+    Extract PropBank entities from sentence. If no entity found return the complete sentence as an entity.
+
+    :param s: sentence
+    :return: list of entities
+    """
+    res = srl_to_entities(sem_rl.sentence_to_srl(s))
+    if not res:
+        res.append(s)
     return res
 
 
@@ -49,7 +59,7 @@ srl_entities_df = roc_stories_df
 # Add entities to Dataframe for each sentence in the dataset
 for n in range(1, 6):
     srl_entities_df[f'srl_entities{n}'] = srl_entities_df[f'resolved{n}'] \
-        .progress_apply(lambda s: srl_to_entities(sem_rl.sentence_to_srl(s)))
+        .progress_apply(lambda s: sentence_to_entities(s))
 
 # Convert Dataframe to csv
 srl_entities_df.to_csv('../generated/prop-bank-entity-extraction/ROCStories_resolved_with_entities.csv', sep='\t')
