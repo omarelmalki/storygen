@@ -762,7 +762,7 @@ if __name__ == "__main__":
                 print(row)
                 for sent_id, col in enumerate(row[1:]):
                     print(col)
-                    texts.append(("text:{}_sent:{}".format(text_id, sent_id), col.lower()))
+                    texts.append(("{}_sent{}".format(text_id, sent_id), col.lower()))
     print(datetime.now(), "Done.")
     print(datetime.now(), "Extracting entities...")
     text = extract_entities([sent for sent_id, sent in texts][:], entity_extractor)

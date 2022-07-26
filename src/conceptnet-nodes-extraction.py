@@ -37,7 +37,7 @@ roc_stories_entities_string_df = roc_stories_entities_df[
 # Save input of ConceptNet Entity Extraction script (CoCo-EX)
 roc_stories_entities_string_df.to_csv(
     '../generated/conceptnet-node-extraction/ROCStories_resolved_entities_entity_extraction_input.csv',
-    sep='\t', header=None)
+    sep='\t', header=None, index=False)
 
 # Run CoCo-Ex entity-extraction script
 os.chdir('../lib/CoCo-Ex/')
@@ -80,6 +80,13 @@ del roc_stories_extracted_nodes_df['nodes']
 
 os.chdir('../../src/')
 
+formatted_df = roc_stories_extracted_nodes_df.pivot(index='storyid', columns='sentence_index', values='node_set')\
+    .reset_index()
+
+formatted_df.columns.name = None
+formatted_df.columns = ['storyid', 'cn_nodes1', 'cn_nodes2', 'cn_nodes3', 'cn_nodes4', 'cn_nodes5']
+
 # Convert Dataframe to csv
-roc_stories_extracted_nodes_df.to_csv('../generated/conceptnet-node-extraction/ROCStories_resolved_cn_nodes_filtered'
+formatted_df.to_csv('../generated/conceptnet-node-extraction/ROCStories_resolved_cn_nodes_filtered'
                                       '.csv', sep='\t')
+

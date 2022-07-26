@@ -1,16 +1,16 @@
 import re
-from typing import List, Any
 import pandas as pd
-from tqdm import tqdm
+from pandarallel import pandarallel
 import sys
 import os
 from allennlp.common import JsonDict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'utils'))
 
+pandarallel.initialize(progress_bar=True)
+
 import utils.semantic_role_labeling as sem_rl
 
-tqdm.pandas()
 
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_rows', None)
@@ -58,8 +58,7 @@ srl_entities_df = roc_stories_df
 
 # Add entities to Dataframe for each sentence in the dataset
 for n in range(1, 6):
-    srl_entities_df[f'srl_entities{n}'] = srl_entities_df[f'resolved{n}'] \
-        .progress_apply(lambda s: sentence_to_entities(s))
+    srl_entities_df[f'srl_entities{n}'] = srl_entities_df[f'resolved{n}'].parallel_apply(sentence_to_entities)
 
 # Convert Dataframe to csv
 srl_entities_df.to_csv('../generated/prop-bank-entity-extraction/ROCStories_resolved_with_entities.csv', sep='\t')
