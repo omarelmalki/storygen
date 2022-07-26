@@ -87,6 +87,5 @@ formatted_df.columns.name = None
 formatted_df.columns = ['storyid', 'cn_nodes1', 'cn_nodes2', 'cn_nodes3', 'cn_nodes4', 'cn_nodes5']
 
 # Convert Dataframe to csv
-formatted_df.to_csv('../generated/conceptnet-node-extraction/ROCStories_resolved_cn_nodes_filtered'
-                                      '.csv', sep='\t')
+formatted_df.to_csv('../generated/conceptnet-node-extraction/ROCStories_resolved_cn_nodes_filtered.tsv', sep='\t')
 
