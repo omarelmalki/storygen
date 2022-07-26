@@ -9,8 +9,12 @@ nlp = spacy.load('en')
 neuralcoref.add_to_pipe(nlp)
 
 # Read ROCStories into pandas DataFrame
-roc_stories_path_csv = "../data/rocstories-2017/ROCStories_winter2017.csv"
-roc_stories_df = pd.read_csv(roc_stories_path_csv, sep=',', header=0)
+roc_stories_2017_path_csv = "../data/rocstories/ROCStories_winter2017.csv"
+roc_stories_2016_path_csv = "../data/rocstories/ROCStories_spring2016.csv"
+roc_stories_2017_df = pd.read_csv(roc_stories_2017_path_csv, sep=',', header=0)
+roc_stories_2016_df = pd.read_csv(roc_stories_2016_path_csv, sep=',', header=0)
+
+roc_stories_df = pd.concat([roc_stories_2016_df, roc_stories_2017_df])
 
 
 def resolve_story(*args: str):
