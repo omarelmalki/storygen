@@ -3,11 +3,12 @@ from typing import List, Any
 from allennlp.common import JsonDict
 import pandas as pd
 import sys
+import os
 from tqdm import tqdm
 
 tqdm.pandas()
 
-sys.path.insert(0, 'utils/')
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'utils'))
 
 import utils.semantic_role_labeling as sem_rl
 
@@ -21,7 +22,6 @@ def srl_to_triple(srl: JsonDict) -> List[Any]:
     """
     res = []
     verbs = srl['verbs']
-    print(f'{verbs}\n')
     for d in verbs:
         tags = d['tags']
         triple = d['description']

@@ -3,9 +3,10 @@ from typing import List, Any
 import pandas as pd
 from tqdm import tqdm
 import sys
+import os
 from allennlp.common import JsonDict
 
-sys.path.insert(0, 'utils/')
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'utils'))
 
 import utils.semantic_role_labeling as sem_rl
 

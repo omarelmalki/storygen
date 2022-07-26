@@ -3,6 +3,7 @@ data/
 .DS_Store
 .idea/
 generated/
+__pycache__/
 
 # Ignore all CoCo-Ex files except modified scripts
 lib/*
