@@ -3,4 +3,11 @@ data/
 .DS_Store
 .idea/
 generated/
-lib/
+
+# Ignore all CoCo-Ex files except modified scripts
+lib/*
+!lib/CoCo-Ex
+lib/CoCo-Ex/*
+!lib/CoCo-Ex/CoCo-Ex_entity_extraction.py
+!lib/CoCo-Ex/CoCo-Ex_overhead_filter.py
+
