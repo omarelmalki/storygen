@@ -20,7 +20,7 @@ def entities_to_string(entities):
 
 
 # Read ROCStories into pandas DataFrame
-roc_stories_path_csv = "../generated/semantic-role-labeling/ROCStories_resolved_with_entities.csv"
+roc_stories_path_csv = "../generated/prop-bank-entity-extraction/ROCStories_resolved_with_entities.csv"
 roc_stories_df = pd.read_csv(roc_stories_path_csv, sep='\t', header=0)
 
 roc_stories_entities_df = roc_stories_df[['storyid', 'srl_entities1', 'srl_entities2',

@@ -52,4 +52,4 @@ for n in range(1, 6):
     srl_df[f'srl_r{n}'] = srl_df[f'resolved{n}'].progress_apply(lambda s: srl_to_triple(sem_rl.sentence_to_srl(s)))
 
 # Convert Dataframe to csv
-srl_df.to_csv('../generated/semantic-role-labeling/ROCStories_resolved_with_knowledge_triples', sep='\t')
+srl_df.to_csv('../generated/knowledge-triple-extraction/ROCStories_resolved_with_knowledge_triples', sep='\t')

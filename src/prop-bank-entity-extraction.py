@@ -51,4 +51,4 @@ for n in range(1, 6):
         .progress_apply(lambda s: srl_to_entities(sem_rl.sentence_to_srl(s)))
 
 # Convert Dataframe to csv
-srl_entities_df.to_csv('../generated/semantic-role-labeling/ROCStories_resolved_with_entities.csv', sep='\t')
+srl_entities_df.to_csv('../generated/prop-bank-entity-extraction/ROCStories_resolved_with_entities.csv', sep='\t')
