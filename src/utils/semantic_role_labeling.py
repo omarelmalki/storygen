@@ -30,6 +30,12 @@ def get_predictor():
 
 
 def run_batch_predictor(batch_data, predictor):
+    """
+    Run SRL extraction from a batch of sentences
+    :param batch_data:
+    :param predictor:
+    :return:
+    """
     if len(batch_data) == 1:
         result = predictor.predict_json(batch_data[0])
         results = [result]
