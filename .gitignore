@@ -4,6 +4,7 @@ data/
 .idea/
 generated/
 __pycache__/
+allenNLP-SRL/
 
 # Ignore all CoCo-Ex files except modified scripts
 lib/*
