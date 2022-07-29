@@ -1,13 +1,16 @@
 import re
 import pandas as pd
-from pandarallel import pandarallel
+# from pandarallel import pandarallel
 import sys
 import os
 from allennlp.common import JsonDict
+import json
+from tqdm import tqdm
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'utils'))
 
-pandarallel.initialize(progress_bar=True)
+# pandarallel.initialize(progress_bar=True)
+tqdm.pandas()
 
 import utils.semantic_role_labeling as sem_rl
 
@@ -25,6 +28,7 @@ def srl_to_entities(srl: JsonDict):
     :param srl: PropBank English SRLs
     :return: PropBank entities as a List of Lists
     """
+    srl = json.loads(srl)
     res = []
     verbs = srl['verbs']
     for d in verbs:
@@ -37,28 +41,30 @@ def srl_to_entities(srl: JsonDict):
     return res
 
 
-def sentence_to_entities(s):
+def sentence_to_entities(s, srl):
     """
     Extract PropBank entities from sentence. If no entity found return the complete sentence as an entity.
 
     :param s: sentence
     :return: list of entities
     """
-    res = srl_to_entities(sem_rl.sentence_to_srl(s))
+    res = srl_to_entities(srl)
     if not res:
         res.append(s)
     return res
 
 
+n = sys.argv[1]
+
 # Read ROCStories into pandas DataFrame
-roc_stories_path_csv = '../generated/coreference_resolution/ROCStories_with_resolved_coreferences.csv'
+roc_stories_path_csv = f'../generated/srl/ROCStories_resolved_srl{n}.csv'
 roc_stories_df = pd.read_csv(roc_stories_path_csv, sep='\t', header=0)
 
 srl_entities_df = roc_stories_df
 
 # Add entities to Dataframe for each sentence in the dataset
-for n in range(1, 6):
-    srl_entities_df[f'srl_entities{n}'] = srl_entities_df[f'resolved{n}'].parallel_apply(sentence_to_entities)
+srl_entities_df[f'srl_entities{n}'] = srl_entities_df\
+    .progress_apply(lambda x: sentence_to_entities(x[f'sentence{n}'], x[f'srl_r{n}']))
 
 # Convert Dataframe to csv
-srl_entities_df.to_csv('../generated/prop-bank-entity-extraction/ROCStories_resolved_with_entities.csv', sep='\t')
+srl_entities_df.to_csv(f'../generated/prop-bank-entity-extraction/ROCStories_resolved_with_entities{n}.csv', sep='\t')
