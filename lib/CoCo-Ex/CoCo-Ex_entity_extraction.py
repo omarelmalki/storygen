@@ -81,7 +81,7 @@ class Text:
         def _take_first(elem):
             return elem[0]
 
-        n = 3
+        n = 1
         size = len(self.sents)
         size_per_process = size // n
         size_first_process = size_per_process + size % n
@@ -112,17 +112,28 @@ class Text:
             pr.join()
 
         parsed_sents_arr.sort(key=_take_first)
+
         for ps in parsed_sents_arr:
             for li in ps[1]:
                 # for each parse tree created, match the tree with its corresponding sentencde
                 for idx, parsed_sent in tqdm(enumerate(li)):
                     parsed_sents.append(parsed_sent)
 
+
         # parsed_sents = parser.raw_parse_sents([sent.text for sent in self.sents_without_empty_lines])
         # for each parse tree created, match the tree with its corresponding sentencde
         # print(f'len retrieved: {len(parsed_sents)}')
         # print(parsed_sents)
         # print(f'type retrieved: {type(parsed_sents)}')
+
+
+        # pool = mp.pool.Pool()
+        #
+        # def update_parse_attributes(tuple):
+        #     self.sents_without_empty_lines[tuple[0]].parse = next(
+        #         tuple[1])
+        #
+        # pool.map(update_parse_attributes, enumerate(parsed_sents))
         for idx, parsed_sent in tqdm(enumerate(parsed_sents)):
             print(type(parsed_sent))
             self.sents_without_empty_lines[idx].parse = next(
@@ -861,6 +872,7 @@ if __name__ == "__main__":
     print(datetime.now(), "Done.")
     print(datetime.now(), "Extracting entities...")
     text = extract_entities([sent for sent_id, sent in texts][:], entity_extractor)
+    print(datetime.now(), "Writing similarities file ...")
     write_similarities_file(outputpath, text, ids=[sent_id for sent_id, sent in texts])
     print(datetime.now(), "Done.")
     print(datetime.now(), "DONE!")
