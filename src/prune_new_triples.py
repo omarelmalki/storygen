@@ -4,7 +4,7 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
-new_events_csv = f'../generated/new_events_from_comet/ROCStories_resolved_new_triples_merged_topk_samples.tsv'
+new_events_csv = f'../generated/new_events_from_comet/ROCStories_with_new_triples_formatted_sample.csv'
 new_events_df = pd.read_csv(new_events_csv, sep='\t', header=0)
 
 forward_rels = ["xWant", "isBefore", "xEffect"]
@@ -70,7 +70,4 @@ for idx, row in tqdm(new_events_df.iterrows()):
 for f in range(1, 5):
     new_events_df[f'pruned_comet{f}'] = pruned_triples[f-1]
 
-for f in range(1, 6):
-    new_events_df.rename({f'sentence_{f}': f'new_events{f}'})
-
-new_events_df.to_csv(f'../generated/new_events_from_comet/ROCStories_with_new_triples_topk_pruned_sample.csv', sep='\t')
+new_events_df.to_csv(f'../generated/new_events_from_comet/ROCStories_with_new_triples_pruned_sample.csv', sep='\t')
