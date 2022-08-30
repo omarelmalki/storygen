@@ -149,7 +149,7 @@ for epoch_i in range(0, epochs):
         loss.backward()
 
         optimizer.step()
-
+        optimizer.zero_grad()
         scheduler.step()
 
     # Calculate the average loss over all of the batches.

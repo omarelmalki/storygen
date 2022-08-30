@@ -5,6 +5,7 @@ data/
 generated/
 __pycache__/
 allenNLP-SRL/
+src/gpt2-ft/
 
 # Ignore all CoCo-Ex files except modified scripts
 lib/*

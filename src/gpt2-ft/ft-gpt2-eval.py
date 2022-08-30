@@ -136,17 +136,17 @@ device = 'cpu'
 if torch.cuda.is_available():
     device = 'cuda'
 
-tokenizer = GPT2Tokenizer.from_pretrained('train_model')
-model = GPT2LMHeadModel.from_pretrained('train_model', pad_token_id=tokenizer.pad_token_id)
+tokenizer = GPT2Tokenizer.from_pretrained('ft_model')
+model = GPT2LMHeadModel.from_pretrained('ft_model', pad_token_id=tokenizer.pad_token_id)
 # model.resize_token_embeddings(len(tokenizer))
 
-hypos = model.generate(tokenizer.encode("Judy moved into a new home. <|eos|> But soon she felt sick. <|eos|>\nTarget: <|bos|> ", return_tensors='pt'),
-                   do_sample=True,
-                       max_length=200,
-                       top_p=0.8,
-                       top_k=50)
+# hypos = model.generate(tokenizer.encode("Judy moved into a new home. <|eos|> But soon she felt sick. <|eos|>\nTarget: <|bos|> ", return_tensors='pt'),
+#                    do_sample=True,
+#                        max_length=200,
+#                        top_p=0.8,
+#                        top_k=50)
 
-print(tokenizer.decode(hypos[0]))
+# print(tokenizer.decode(hypos[0]))
 
 # model = torch.nn.DataParallel(model)
 
@@ -160,7 +160,7 @@ def remove_padding(string, padding='<|pad|>'):
 
 
 class StorygenTestDataset(Dataset):
-    def __init__(self, tokenizer, data_path, data_type, max_length=1024):
+    def __init__(self, tokenizer, data_path, data_type, max_length=100):
 
         self.data_path = data_path
         self.tokenizer = tokenizer
@@ -176,10 +176,10 @@ class StorygenTestDataset(Dataset):
         input_sentences_df = input_sentences_df[['sentence1', 'sentence2', 'sentence3', 'sentence4', 'sentence5']]
 
         for idx, src in tqdm(input_sentences_df.iterrows()):
-            input_str = self.bos
+            input_str = ''
             for s_id in range(1, 3):
                 input_str += ' ' + src[f'sentence{s_id}'] + self.eos
-            input_str += '\nTarget:'
+            input_str += '\nTarget: ' + self.bos
             if data_type != 'test':
                 for s_id in range(3, 6):
                     input_str += ' ' + src[f'sentence{s_id}'] + self.eos
@@ -236,7 +236,7 @@ for batch in tqdm(test_dataloader, desc="Evaluating"):
             max_length=200,
             top_p=0.8,
             top_k=50)
-        print(hypos)
+        # print(hypos)
         generated = tokenizer.decode(hypos[0], skip_special_tokens=True)
         print(generated)
         gen_seqs.append(hypos)
