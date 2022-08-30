@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer, util
 
 tqdm.pandas()
 
-new_events_csv = f'../generated/new_events_from_comet/ROCStories_resolved_new_triples_merged_topk_samples.tsv'
+new_events_csv = f'../generated/new_events_from_comet/ROCStories_resolved_new_triples_merged_topk.tsv'
 new_events_df = pd.read_csv(new_events_csv, sep='\t', header=0)
 
 sentence_transform = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
@@ -27,4 +27,4 @@ def add_embeddings(triples):
 for f in tqdm(range(1, 6)):
     new_events_df[f'sent_w_embeddings{f}'] = new_events_df[f'sentence_{f}'].apply(add_embeddings)
 
-new_events_df.to_pickle(f'../generated/new_events_from_comet/ROCStories_with_new_triples_topk_w_embeddings_sample.pk')
+new_events_df.to_pickle(f'../generated/new_events_from_comet/ROCStories_with_new_triples_topk_w_embeddings.pk')

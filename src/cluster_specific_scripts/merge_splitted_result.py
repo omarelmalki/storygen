@@ -32,4 +32,4 @@ del res_df['Unnamed: 0.1.1']
 del res_df['Unnamed: 0.1.1.1']
 del res_df['Unnamed: 0_y']
 
-res_df.to_csv('../../generated/new_events_from_comet/ROCStories_resolved_new_triples_merged_topk_samples.tsv', '\t')
+res_df.to_csv('../../generated/new_events_from_comet/ROCStories_resolved_new_triples_merged_topk.tsv', '\t')

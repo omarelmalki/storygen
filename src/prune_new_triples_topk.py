@@ -59,7 +59,7 @@ def keep_top_k_elements(l, k):
         return set(l[:k])
 
 
-new_events_df = pd.read_pickle(f'../generated/new_events_from_comet/ROCStories_with_new_triples_topk_w_embeddings_sample.pkl')
+new_events_df = pd.read_pickle(f'../generated/new_events_from_comet/ROCStories_with_new_triples_topk_w_embeddings.pkl')
 
 n_rels = len(forward_rels)
 pruned_triples = [[] for _ in range(5)]
@@ -99,4 +99,4 @@ for f in range(1, 6):
 for f in range(1, 6):
     new_events_df.rename({f'sentence_{f}': f'new_events{f}'})
 
-new_events_df.to_csv(f'../generated/new_events_from_comet/ROCStories_with_new_triples_topk_pruned_sample.csv', sep='\t')
+new_events_df.to_csv(f'../generated/new_events_from_comet/ROCStories_with_new_triples_topk_pruned.csv', sep='\t')
