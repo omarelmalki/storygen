@@ -1,1 +1,1 @@
-# Story Generation with Commonsense Knowledge
+# Knowledge extraction pipeline for commonsense-enhanced story generation
